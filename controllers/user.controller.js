@@ -98,7 +98,7 @@ class UserController {
 
     async getUsers(req, res) {
         try {
-            const users = await pool.query(`SELECT * FROM users`);
+            const users = await pool.query(`SELECT * FROM users ORDER BY id ASC`);
 
             logger.info("Request for all users");
 
