@@ -43,5 +43,5 @@ app.use('/api', router);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    logger.info(`Server starts on ${PORT}`);
+    console.log(`Server starts on ${PORT}`);
 });
