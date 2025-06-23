@@ -29,7 +29,7 @@ app.use(helmet());
 
 const corsOptions = {
     origin: [
-        'https://gerosd.github.io/GFM-client/',
+        'https://gerosd.github.io',
     ],
     credentials: true,
     optionsSuccessStatus: 200
