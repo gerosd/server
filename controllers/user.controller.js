@@ -32,14 +32,14 @@ class UserController {
                 maxAge: 604800000,
             });
 
-            logger.info(`Create a new user - ${username}`)
+            console.log(`Create a new user - ${username}`)
 
             res.json({
                 ...userData,
                 message: 'Пользователь успешно зарегистрирован и авторизован'
             });
         } catch (error) {
-            logger.error("Ошибка входа: ", error);
+            console.error("Ошибка входа: ", error);
 
             if (error.code === '23505') {
                 return res.status(409).json({ message: 'Пользователь с таким именем или email уже существует' });
@@ -91,7 +91,7 @@ class UserController {
             res.json(userData);
 
         } catch (error) {
-            logger.error('Ошибка входа: ', error);
+            console.error('Ошибка входа: ', error);
             res.status(500).json({ message: 'Ошибка сервера при попытке входа' })
         }
     }
@@ -100,11 +100,11 @@ class UserController {
         try {
             const users = await pool.query(`SELECT * FROM users ORDER BY id ASC`);
 
-            logger.info("Request for all users");
+            console.log("Request for all users");
 
             res.json(users.rows);
         } catch (error) {
-            logger.error('Ошибка получения пользователей: ', error);
+            console.error('Ошибка получения пользователей: ', error);
             res.status(500).json({ message: 'Ошибка сервера' });
         }
     }
@@ -119,7 +119,7 @@ class UserController {
 
             res.json(user.rows[0]);
         } catch (error) {
-            logger.error('Ошибка получения текущего пользователя: ', error);
+            console.error('Ошибка получения текущего пользователя: ', error);
             res.status(500).json({ message: 'Ошибка сервера' });
         }
     }
@@ -150,11 +150,11 @@ class UserController {
                 return res.status(404).json({ message: "Пользователь не найден" });
             }
 
-            logger.info(`User ${id} data update: ${JSON.stringify(req.body)}`);
+            console.log(`User ${id} data update: ${JSON.stringify(req.body)}`);
 
             res.json(user.rows[0]);
         } catch (error) {
-            logger.error('Ошибка обновления пользователя: ', error);
+            console.error('Ошибка обновления пользователя: ', error);
 
             if (error.code === '23505') {
                 return res.status(409).json({ message: 'Пользователь с таким именем или email уже существует' });
@@ -173,11 +173,11 @@ class UserController {
                 return res.status(404).json({ message: 'Пользователь не найден' });
             }
 
-            logger.info(`User ${id} has been deleted`);
+            console.log(`User ${id} has been deleted`);
 
             res.json({ message: 'Пользователь удален', id: user.rows[0].id });
         } catch (error) {
-            logger.error("Ошибка удаления пользователя", error);
+            console.error("Ошибка удаления пользователя", error);
             res.status(500).json({ message: "Ошибка сервера" });
         }
     }
@@ -190,7 +190,7 @@ class UserController {
             jwt.verify(token, process.env.JWT_SECRET);
             res.json({ isAuthenticated: true });
         } catch (error) {
-            logger.error(error);
+            console.error(error);
             res.json({ isAuthenticated: false });
         }
     }
@@ -204,7 +204,7 @@ class UserController {
             });
             res.json({ isAuthenticated: false });
         } catch (error) {
-            logger.error(error);
+            console.error(error);
             res.json({ isAuthenticated: true });
         }
     }
