@@ -12,10 +12,10 @@ const envConfig = dotenv.config({
 
 const pool = new Pool({
     user: "postgres.gnkrtyzgrpmdudjqhhqg",
-    password: envConfig.parsed.DB_PASSWORD,
-    host: envConfig.parsed.DB_HOST,
-    port: parseInt(envConfig.parsed.DB_PORT, 10),
-    database: envConfig.parsed.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
 });
 
 export default pool;
