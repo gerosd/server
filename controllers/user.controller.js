@@ -111,7 +111,7 @@ class UserController {
 
     async getCurrentUser(req, res) {
         try {
-            const user = await pool.query(`SELECT id, username, "SNL", phone_number, email FROM users WHERE id = $1`, [req.userId]);
+            const user = await pool.query(`SELECT id, username, "SNL", phone_number, email, role FROM users WHERE id = $1`, [req.userId]);
 
             if (user.rows.length === 0) {
                 return res.status(404).json({ message: 'Пользователь не найден' });
